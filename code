@@ -1,0 +1,70 @@
+GlowScript 2.7 VPython
+
+import random
+
+asob= []
+class objt :
+    def sett(self, v):
+        self.x = random.randint(0,1000)
+        self.y = random.randint(0,1000)
+        self.a = random.randint(-int(v),int(v))
+        self.b = random.randint(-int(v),int(v))
+        self.f = random.randint(200,400)
+        self.ball = sphere(radius =20)
+        self.ball.pos = vector(self.x , self.y , 0)
+        
+    def act2(self, t, v):
+        self.ball.p = vector(self.a*cos(self.f*v*t), self.b*cos(self.f*v*t), 0)
+        self.ball.pos += self.ball.p
+    
+    def __del__(self):
+        asob.remove(self)
+
+numone = 20
+numtwo = 20
+numthr = 20
+v = 100
+
+for i in range(numone) :
+    asob.append(objt())
+    asob[-1].who = 1
+    
+for i in range(numtwo) :
+    asob.append(objt())
+    asob[-1].who = 2
+    
+for i in range(numthr) :
+    asob.append(objt())
+    asob[-1].who = 3
+
+t=0
+dt =0.01
+tlim=0.5
+for i in range(numone + numtwo + numthr):
+    asob[i].sett(v)
+while t<tlim:
+    rate(10)
+    t += dt
+    for i in range(numone+numtwo+numthr):
+         asob[i].act2(t, v)
+print(t)
+
+whoone =0
+whotwo =0
+whofou =0
+whofiv =0
+whosum = whoone+ whotwo+ whofou+ whofiv 
+whorate =[whoone, whotwo, whofou, whofiv]
+
+for i in range(len(asob)) :
+    if asob[i].who == 1:
+        whoone += 1
+    if asob[i].who == 2:
+        whotwo += 1
+    if asob[i].who == 4:
+        whofou += 1
+    if asob[i].who == 5:
+        whofiv += 1
+
+print(len(asob))
+print('1:',whoone,', 2:',whotwo,', 4:',whofou,', 5:',whofiv)
